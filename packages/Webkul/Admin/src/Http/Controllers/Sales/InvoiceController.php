@@ -5,7 +5,7 @@ namespace Webkul\Admin\Http\Controllers\Sales;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Sales\Repositories\OrderRepository as Order;
 use Webkul\Sales\Repositories\InvoiceRepository as Invoice;
 use PDF;
@@ -93,7 +93,7 @@ class InvoiceController extends Controller
         $order = $this->order->findOrFail($orderId);
 
         if (! $order->canInvoice()) {
-            Session::flashError('admin::app.sales.invoices.creation-error');
+            BagistoFlash::error('admin::app.sales.invoices.creation-error');
 
             return redirect()->back();
         }
@@ -113,7 +113,7 @@ class InvoiceController extends Controller
         }
 
         if (! $haveProductToInvoice) {
-            Session::flashError('admin::app.sales.invoices.product-error');
+            BagistoFlash::error('admin::app.sales.invoices.product-error');
 
             return redirect()->back();
         }

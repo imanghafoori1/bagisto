@@ -5,7 +5,7 @@ namespace Webkul\Core\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Core\Repositories\LocaleRepository as Locale;
 
 /**
@@ -136,7 +136,7 @@ class LocaleController extends Controller
         $locale = $this->locale->findOrFail($id);
 
         if($this->locale->count() == 1) {
-            Session::flashError('admin::app.response.last-delete-error', ['name' => 'Locale']);
+            BagistoFlash::error('admin::app.response.last-delete-error', ['name' => 'Locale']);
         } else {
             try {
                 Event::fire('core.locale.delete.before', $id);
@@ -149,7 +149,7 @@ class LocaleController extends Controller
 
                 return response()->json(['message' => true], 200);
             } catch(\Exception $e) {
-                Session::flashError('admin::app.response.delete-failed', ['name' => 'Locale']);
+                BagistoFlash::error('admin::app.response.delete-failed', ['name' => 'Locale']);
             }
         }
 

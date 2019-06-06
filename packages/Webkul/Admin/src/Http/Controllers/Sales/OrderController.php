@@ -5,7 +5,7 @@ namespace Webkul\Admin\Http\Controllers\Sales;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Sales\Repositories\OrderRepository as Order;
 
 /**
@@ -82,7 +82,7 @@ class OrderController extends Controller
         if ($result) {
             session()->flash('success', trans('admin::app.response.cancel-success', ['name' => 'Order']));
         } else {
-            Session::flashError('admin::app.response.cancel-error', ['name' => 'Order']);
+            BagistoFlash::error('admin::app.response.cancel-error', ['name' => 'Order']);
         }
 
         return redirect()->back();

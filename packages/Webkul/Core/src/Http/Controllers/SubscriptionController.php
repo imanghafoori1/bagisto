@@ -4,7 +4,7 @@ namespace Webkul\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Core\Repositories\SubscribersListRepository as Subscribers;
 /**
  * Subscription controller
@@ -76,7 +76,7 @@ class SubscriptionController extends Controller
             session()->flash('success', trans('admin::app.customers.subscribers.update-success'));
             // session()->flash('success', 'admin::app.customers.subscribers.delete-success');
         else
-            Session::flashError('admin::app.customers.subscribers.update-failed');
+            BagistoFlash::error('admin::app.customers.subscribers.update-failed');
 
         return redirect()->route($this->_config['redirect']);
     }
@@ -98,7 +98,7 @@ class SubscriptionController extends Controller
 
             return response()->json(['message' => true], 200);
         } catch (\Exception $e) {
-            Session::flashError('admin::app.response.delete-failed', ['name' => 'Subscriber']);
+            BagistoFlash::error('admin::app.response.delete-failed', ['name' => 'Subscriber']);
         }
 
         return response()->json(['message' => false], 400);

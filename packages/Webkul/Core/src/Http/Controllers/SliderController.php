@@ -4,7 +4,7 @@ namespace Webkul\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Core\Repositories\SliderRepository as Slider;
 
 /**
@@ -121,7 +121,7 @@ class SliderController extends Controller
         if ($result) {
             session()->flash('success', trans('admin::app.settings.sliders.update-success'));
         } else {
-            Session::flashError('admin::app.settings.sliders.update-fail');
+            BagistoFlash::error('admin::app.settings.sliders.update-fail');
         }
 
         return redirect()->route($this->_config['redirect']);
@@ -146,7 +146,7 @@ class SliderController extends Controller
 
                 return response()->json(['message' => true], 200);
             } catch(\Exception $e) {
-                Session::flashError('admin::app.response.delete-failed', ['name' => 'Slider']);
+                BagistoFlash::error('admin::app.response.delete-failed', ['name' => 'Slider']);
             }
         }
 

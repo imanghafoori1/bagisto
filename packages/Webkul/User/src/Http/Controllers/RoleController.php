@@ -5,7 +5,7 @@ namespace Webkul\User\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\User\Repositories\RoleRepository as Role;
 
 /**
@@ -138,9 +138,9 @@ class RoleController extends Controller
         $role = $this->role->findOrFail($id);
 
         if ($role->admins->count() >= 1) {
-            Session::flashError('admin::app.response.being-used', ['name' => 'Role', 'source' => 'Admin User']);
+            BagistoFlash::error('admin::app.response.being-used', ['name' => 'Role', 'source' => 'Admin User']);
         } else if($this->role->count() == 1) {
-            Session::flashError('admin::app.response.last-delete-error', ['name' => 'Role']);
+            BagistoFlash::error('admin::app.response.last-delete-error', ['name' => 'Role']);
         } else {
             try {
                 Event::fire('user.role.delete.before', $id);
@@ -153,7 +153,7 @@ class RoleController extends Controller
 
                 return response()->json(['message' => true], 200);
             } catch(\Exception $e) {
-                Session::flashError('admin::app.response.delete-failed', ['name' => 'Role']);
+                BagistoFlash::error('admin::app.response.delete-failed', ['name' => 'Role']);
             }
         }
 

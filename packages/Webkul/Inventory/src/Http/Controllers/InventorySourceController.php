@@ -5,7 +5,7 @@ namespace Webkul\Inventory\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Inventory\Repositories\InventorySourceRepository as InventorySource;
 
 /**
@@ -159,7 +159,7 @@ class InventorySourceController extends Controller
         $inventorySource = $this->inventorySource->findOrFail($id);
 
         if($this->inventorySource->count() == 1) {
-            Session::flashError('admin::app.response.last-delete-error', ['name' => 'Inventory source']);
+            BagistoFlash::error('admin::app.response.last-delete-error', ['name' => 'Inventory source']);
         } else {
             try {
                 Event::fire('inventory.inventory_source.delete.before', $id);
@@ -172,7 +172,7 @@ class InventorySourceController extends Controller
 
                 return response()->json(['message' => true], 200);
             } catch (\Exception $e) {
-                Session::flashError('admin::app.response.delete-failed', ['name' => 'Inventory source']);
+                BagistoFlash::error('admin::app.response.delete-failed', ['name' => 'Inventory source']);
             }
         }
 

@@ -4,7 +4,7 @@ namespace Webkul\Customer\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Customer\Repositories\WishlistRepository;
@@ -89,7 +89,7 @@ class WishlistController extends Controller
 
                 return redirect()->back();
             } else {
-                Session::flashError('customer::app.wishlist.failure');
+                BagistoFlash::error('customer::app.wishlist.failure');
 
                 return redirect()->back();
             }
@@ -119,7 +119,7 @@ class WishlistController extends Controller
             }
         }
 
-        Session::flashError('customer::app.wishlist.remove-fail');
+        BagistoFlash::error('customer::app.wishlist.remove-fail');
 
         return redirect()->back();
     }
@@ -148,12 +148,12 @@ class WishlistController extends Controller
 
                 return redirect()->back();
             } else {
-                Session::flashError('shop::app.wishlist.move-error');
+                BagistoFlash::error('shop::app.wishlist.move-error');
 
                 return redirect()->back();
             }
         } else if ($result == 0) {
-            Session::flashError('shop::app.wishlist.error');
+            BagistoFlash::error('shop::app.wishlist.error');
 
             return redirect()->back();
         } else if ($result == -1) {

@@ -2,7 +2,7 @@
 
 namespace Webkul\Shop\Http\Controllers;
 
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Shop\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -89,7 +89,7 @@ class SubscriptionController extends Controller
 
                 session()->flash('success', trans('shop::app.subscription.subscribed'));
             } catch (\Exception $e) {
-                Session::flashError('shop::app.subscription.not-subscribed');
+                BagistoFlash::error('shop::app.subscription.not-subscribed');
 
                 $mailSent = false;
             }
@@ -105,13 +105,13 @@ class SubscriptionController extends Controller
                 ]);
 
                 if (!$result) {
-                    Session::flashError('shop::app.subscription.not-subscribed');
+                    BagistoFlash::error('shop::app.subscription.not-subscribed');
 
                     return redirect()->back();
                 }
             }
         } else {
-            Session::flashError('shop::app.subscription.already');
+            BagistoFlash::error('shop::app.subscription.already');
         }
 
         return redirect()->back();

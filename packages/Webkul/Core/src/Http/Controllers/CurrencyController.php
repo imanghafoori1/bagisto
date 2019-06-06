@@ -5,7 +5,7 @@ namespace Webkul\Core\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Core\Repositories\CurrencyRepository as Currency;
 
 /**
@@ -149,7 +149,7 @@ class CurrencyController extends Controller
 
                 return response()->json(['message' => true], 200);
             } catch (\Exception $e) {
-                Session::flashError('admin::app.response.delete-failed', ['name' => 'Currency']);
+                BagistoFlash::error('admin::app.response.delete-failed', ['name' => 'Currency']);
             }
         }
 
@@ -188,7 +188,7 @@ class CurrencyController extends Controller
 
             return redirect()->back();
         } else {
-            Session::flashError('admin::app.datagrid.mass-ops.method-error');
+            BagistoFlash::error('admin::app.datagrid.mass-ops.method-error');
 
             return redirect()->back();
         }

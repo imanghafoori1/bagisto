@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Webkul\Channel as Channel;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Tax\Repositories\TaxCategoryRepository as TaxCategory;
 use Webkul\Tax\Repositories\TaxRateRepository as TaxRate;
 use Webkul\Tax\Repositories\TaxMapRepository as TaxMap;
@@ -151,7 +151,7 @@ class TaxCategoryController extends Controller
         Event::fire('tax.tax_category.update.after', $taxCategory);
 
         if (! $taxCategory) {
-            Session::flashError('admin::app.settings.tax-categories.update-error');
+            BagistoFlash::error('admin::app.settings.tax-categories.update-error');
 
             return redirect()->back();
         }
@@ -187,7 +187,7 @@ class TaxCategoryController extends Controller
 
             return response()->json(['message' => true], 200);
         } catch(Exception $e) {
-            Session::flashError('admin::app.response.delete-failed', ['name' => 'Tax Category']);
+            BagistoFlash::error('admin::app.response.delete-failed', ['name' => 'Tax Category']);
         }
 
         return response()->json(['message' => false], 400);

@@ -5,7 +5,7 @@ namespace Webkul\User\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Auth;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 
 /**
  * Admin user session controller
@@ -73,7 +73,7 @@ class SessionController extends Controller
         $remember = request('remember');
 
         if (! auth()->guard('admin')->attempt(request(['email', 'password']), $remember)) {
-            Session::flashError('admin::app.users.users.login-error');
+            BagistoFlash::error('admin::app.users.users.login-error');
 
             return redirect()->back();
         }

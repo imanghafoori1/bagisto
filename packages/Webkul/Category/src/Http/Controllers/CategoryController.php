@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Webkul\Category\Repositories\CategoryRepository as Category;
 use Webkul\Category\Models\CategoryTranslation;
 use Illuminate\Support\Facades\Event;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 
 /**
  * Catalog category controller
@@ -86,7 +86,7 @@ class CategoryController extends Controller
             $result = $categoryTransalation->where('name', request()->input('name'))->get();
 
             if(count($result) > 0) {
-                Session::flashError('admin::app.response.create-root-failure');
+                BagistoFlash::error('admin::app.response.create-root-failure');
 
                 return redirect()->back();
             }
@@ -166,7 +166,7 @@ class CategoryController extends Controller
 
                 return response()->json(['message' => true], 200);
             } catch(\Exception $e) {
-                Session::flashError('admin::app.response.delete-failed', ['name' => 'Category']);
+                BagistoFlash::error('admin::app.response.delete-failed', ['name' => 'Category']);
             }
         }
 
@@ -205,7 +205,7 @@ class CategoryController extends Controller
 
             return redirect()->back();
         } else {
-            Session::flashError('admin::app.datagrid.mass-ops.method-error');
+            BagistoFlash::error('admin::app.datagrid.mass-ops.method-error');
 
             return redirect()->back();
         }

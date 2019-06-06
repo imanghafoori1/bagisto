@@ -133,7 +133,7 @@ class AttributeController extends Controller
         $attribute = $this->attribute->findOrFail($id);
 
         if (! $attribute->is_user_defined) {
-            Session::flashError('admin::app.response.user-define-error', ['name' => 'Attribute']);
+            BagistoFlash::error('admin::app.response.user-define-error', ['name' => 'Attribute']);
         } else {
             try {
                 $this->attribute->delete($id);
@@ -142,7 +142,7 @@ class AttributeController extends Controller
 
                 return response()->json(['message' => true], 200);
             } catch(\Exception $e) {
-                Session::flashError('admin::app.response.delete-failed', ['name' => 'Attribute']);
+                BagistoFlash::error('admin::app.response.delete-failed', ['name' => 'Attribute']);
             }
         }
 
@@ -184,7 +184,7 @@ class AttributeController extends Controller
 
             return redirect()->back();
         } else {
-            Session::flashError('admin::app.datagrid.mass-ops.method-error');
+            BagistoFlash::error('admin::app.datagrid.mass-ops.method-error');
 
             return redirect()->back();
         }

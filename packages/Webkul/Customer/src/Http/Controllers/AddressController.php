@@ -4,7 +4,7 @@ namespace Webkul\Customer\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Webkul\Core\Helpers\Session;
+use Webkul\Core\Helpers\BagistoFlash;
 use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Customer\Repositories\CustomerAddressRepository;
 use Auth;
@@ -95,7 +95,7 @@ class AddressController extends Controller
 
             return redirect()->route($this->_config['redirect']);
         } else {
-            Session::flashError('shop::app.customer.account.address.create.error');
+            BagistoFlash::error('shop::app.customer.account.address.create.error');
 
             return redirect()->back();
         }
